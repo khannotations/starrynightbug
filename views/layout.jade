@@ -6,4 +6,7 @@ html
   body
     block content
 
-    !//= js("application")
+    != js("application")
+    script.
+      window.router = new Starry.Router();
+      Backbone.history.start();

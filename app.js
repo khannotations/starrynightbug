@@ -13,20 +13,20 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var connectAssets = require('connect-assets'); // Asset pipeline
-// Routes
-var routes = require('./routes/index');
-var admin = require('./routes/admin');
 // Authentication
+var secrets = require('./config/secrets');
 var passport = require('passport');
-var passportConfig = require ('./config/passport.js'); // Passport configuration
+var passportConfig = require ('./config/passport'); // Passport configuration
+// Database
+var mongoose = require('mongoose');
 
 /**
  * Connect to MongoDB.
  */
-// mongoose.connect(secrets.db);
-// mongoose.connection.on('error', function() {
-//   console.error('MongoDB Connection Error. Make sure MongoDB is running.');
-// });
+mongoose.connect(secrets.db);
+mongoose.connection.on('error', function() {
+  console.error('MongoDB Connection Error. Make sure MongoDB is running.');
+});
 
 /**
  * Views
@@ -43,8 +43,12 @@ app.use(cookieParser());
 // Rails-like asset pipeline with connect-assets.
 // Compiles .less files automatically.
 app.use(connectAssets({
-  paths: [path.join(__dirname, 'assets/stylesheets'), // CSS
-  path.join(__dirname, 'assets/javascripts')] // Javascript
+  paths: [
+    path.join(__dirname, 'assets/stylesheets'), // CSS
+    path.join(__dirname, 'assets/javascripts'), // Javascript
+    path.join(__dirname, 'assets/templates'),   // Backbone templates
+    path.join(__dirname, 'bower_components')    // Bower components
+  ]
 }));
 // Leave public routes open for fonts and images
 app.use(express.static(path.join(__dirname, 'public')));
@@ -55,7 +59,13 @@ app.use(passport.initialize());
 /**
  * Routes
  */
+
+var routes = require('./routes/index');
+var admin = require('./routes/admin');
+var albums = require('./routes/album');
+
 app.use('/', routes);
+app.use('/api/v1/albums', albums);
 app.use('/admin', passport.authenticate('basic', {session: false}), admin);
 
 // catch 404 and forward to error handler

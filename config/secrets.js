@@ -4,6 +4,6 @@ module.exports = {
   db: process.env.MONGOLAB_URI,
   sessionSecret: process.env.SESSION_SECRET,
   // AWS
-  username: "starry",
-  password: "bugnightstarry"
+  username: process.env.SNB_USERNAME,
+  password: process.env.SNB_PASSWORD
 };
