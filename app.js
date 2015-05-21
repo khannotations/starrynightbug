@@ -60,11 +60,13 @@ app.use(passport.initialize());
  * Routes
  */
 
-var routes = require('./routes/index');
+var main = require('./routes/main');
 var admin = require('./routes/admin');
 var albums = require('./routes/album');
 
-app.use('/', routes);
+app.use('/', main);
+app.use('/login', passport.authenticate('basic', {session: false}), main);
+// app.use('/current_user', passport.authenticate('basic', {session: false}), main);
 app.use('/api/v1/albums', albums);
 app.use('/admin', passport.authenticate('basic', {session: false}), admin);
 
