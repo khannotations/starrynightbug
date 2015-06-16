@@ -12,6 +12,7 @@ var pictureSchema = new mongoose.Schema({
     coordinates: [Number]
   },
   comment: { type: String, default: "" },
+  hashtags: [String],
 });
 
 pictureSchema.plugin(attachments, {

@@ -3,7 +3,8 @@ var timestamps = require('./_timestamps');
 var Picture = require('./Picture');
 
 var albumSchema = new mongoose.Schema({
-  name: { type: String, unique: true, required: true },
+  name: { type: String, unique: true, required: true,
+    caseSensitive: true, index: true },
   description: { type: String, default: "" },
 });
 
