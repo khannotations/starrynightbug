@@ -12,6 +12,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+// var methodOverride = require('method-override');
 var connectAssets = require('connect-assets'); // Asset pipeline
 // Authentication
 var secrets = require('./config/secrets');
@@ -23,7 +24,11 @@ var mongoose = require('mongoose');
 /**
  * Connect to MongoDB.
  */
-mongoose.connect(secrets.db);
+if (app.get('env') == 'test') {
+  mongoose.connect(secrets.test_db);
+} else {
+  mongoose.connect(secrets.db);
+}
 mongoose.connection.on('error', function() {
   console.error('MongoDB Connection Error. Make sure MongoDB is running.');
 });
@@ -39,6 +44,7 @@ app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(methodOverride());
 app.use(cookieParser());
 // Rails-like asset pipeline with connect-assets.
 // Compiles .less files automatically.
@@ -47,7 +53,9 @@ app.use(connectAssets({
     path.join(__dirname, 'assets/stylesheets'), // CSS
     path.join(__dirname, 'assets/javascripts'), // Javascript
     path.join(__dirname, 'assets/templates'),   // Backbone templates
-    path.join(__dirname, 'bower_components')    // Bower components
+    path.join(__dirname, 'bower_components'),   // Bower components
+    path.join(__dirname, 'lib/assets/stylesheets'),   // Imported CSS
+    path.join(__dirname, 'lib/assets/javascripts'),   // Imported JS
   ]
 }));
 // Leave public routes open for fonts and images
@@ -65,9 +73,11 @@ var admin = require('./routes/admin');
 var albums = require('./routes/album');
 
 app.use('/', main);
-app.use('/login', passport.authenticate('basic', {session: false}), main);
-// app.use('/current_user', passport.authenticate('basic', {session: false}), main);
-app.use('/api/v1/albums', albums);
+app.use('/login', passport.authenticate('basic', {
+  session: false,
+  successRedirect: "/#/admin"
+}), main);
+app.use(albums);
 app.use('/admin', passport.authenticate('basic', {session: false}), admin);
 
 // catch 404 and forward to error handler

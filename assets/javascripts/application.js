@@ -3,10 +3,11 @@
 //= require backbone/backbone
 //= require backbone-forms/distribution/backbone-forms
 //= require jquery.scrolly.min.js
-      // <script src="assets/js/jquery.poptrox.min.js"></script>
-      // <script src="assets/js/skel.min.js"></script>
-      // <script src="assets/js/util.js"></script>
-      // <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-      // <script src="assets/js/main.js"></script>
+//= require jquery.poptrox.min.js
+//= require skel.min.js
+//= require util.js
+//= require main.js
 //= require starry
 //= require_tree .
+
+// <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->

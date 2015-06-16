@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon -e jade,less,js ./bin/www"
+    "start": "nodemon -e jade,less,js ./bin/www",
+    "test": "NODE_ENV=test mocha"
   },
   "dependencies": {
     "aws-sdk": "^2.1.27",
@@ -14,20 +15,24 @@
     "debug": "~2.1.1",
     "ejs": "^2.3.1",
     "express": "~4.12.2",
+    "express-restify-mongoose": "^1.0.1",
     "jade": "~1.9.2",
     "less": "^2.5.0",
     "mongoose": "^4.0.2",
     "mongoose-attachments": "^0.1.0",
     "mongoose-attachments-localfs": "^0.1.1",
     "morgan": "~1.5.1",
+    "node-sass": "^3.2.0",
     "passport": "^0.2.1",
     "passport-http": "^0.2.2",
     "serve-favicon": "~2.2.0",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "winston": "^1.0.0"
   },
   "devDependencies": {
     "chai": "^2.3.0",
     "mocha": "^2.2.5",
+    "mockgoose": "^2.0.2",
     "should": "^6.0.3",
     "supertest": "^1.0.1"
   }
