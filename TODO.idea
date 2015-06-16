@@ -1,0 +1,19 @@
+## Admin
+
+Stream
+- View all pictures
+- View a particular album
+- View by hashtag
+
+Albums
+- Properties: name, description
+- Create, update, destroy
+- View all pictures
+- Click to edit
+- Edit pictures in batch (v2)
+
+Pictures
+- Upload pictures to album
+- Add date taken, caption, hashtags(?)
+- View picture
+- Purchase link
