@@ -1,2 +1,19 @@
 h1 Admin backbone
 a(href="/") home
+
+h4 All albums
+
+#albums
+
+a(href="/#/albums/a") Album "a"
+
+h4 Create an album
+
+div
+  label Name
+  input(type="text", id="album-name", required="required")
+div
+  label Description
+  textarea(id="album-description", required="required")
+div
+  input(type="submit", value="submit", id="create-album")

@@ -7,7 +7,7 @@ window.Starry = window.Starry || {
       "": "stream",
       "admin": "admin",
       "about": "about",
-      "album/:name": "album"
+      "albums/:name": "album"
     },
     stream: function() {
       this.streamView = new Starry.Views.Stream();
@@ -18,6 +18,12 @@ window.Starry = window.Starry || {
       this.ensureCurrentUser(function() {
         $("#backbone").html(new Starry.Views.Admin().el);
       });
+    },
+
+    album: function(name) {
+      $("#backbone").html(new Starry.Views.Album({
+        model: new Starry.Models.Album({name: name})
+      }).el);
     },
 
     // Helpers
